@@ -2,22 +2,18 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    [SerializeField] private int width = 16;
-    [SerializeField] private int height = 16;
-    [SerializeField] private int mineCount = 32;
+    public static int width = 16;
+    public static int height = 16;
+    public static int mineCount = 32;
 
     private Board board;
     private Cell[,] state;
     private bool gameover;
 
-    private void OnValidate()
-    {
-        mineCount = Mathf.Clamp(mineCount, 1, width * height);
-    }
-
     private void Awake()
     {
         board = FindObjectOfType<Board>();
+        Camera.main.orthographicSize = width > height ? width / 2 + 1 : height / 2 + 1;
     }
 
     private void Start()
@@ -77,7 +73,7 @@ public class Game : MonoBehaviour
             int x = Random.Range(0, width);
             int y = Random.Range(0, height);
 
-            //Check, if current cell already is a mine, if yes, move to the next cell
+            //Check, if current cell already is a mine, if it is one, move to the next cell
             while(state[x, y].type == Cell.Type.Mine)
             {
                 x++;
