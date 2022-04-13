@@ -6,6 +6,9 @@ public class Game : MonoBehaviour
     public static int height = 16;
     public static int mineCount = 32;
 
+    [SerializeField] private GameObject winText;
+    [SerializeField] private GameObject lostText;
+    [SerializeField] private GameObject buttons;
     private Board board;
     private Cell[,] state;
     private bool gameover;
@@ -229,7 +232,8 @@ public class Game : MonoBehaviour
             }
         }
 
-        //Lost screen
+        lostText.SetActive(true);
+        buttons.SetActive(true);
     }
 
     private void CheckWinCondition()
@@ -263,7 +267,8 @@ public class Game : MonoBehaviour
             }
         }
 
-        //Winner screen...
+        winText.SetActive(true);
+        buttons.SetActive(true);
     }
 
     private Cell GetCell(int x, int y)
